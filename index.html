@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrimVisual - Создатели визуальных новелл</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Основные стили */
+        :root {
+            --primary-color: #1a1a1a;
+            --secondary-color: #ff3b3b;
+            --accent-color: #ff6b6b;
+            --text-color: #ffffff;
+            --light-bg: #0d0d0d;
+            --dark-bg: #000000;
+            --card-bg: rgba(20, 0, 0, 0.7);
+            --border-color: rgba(255, 59, 59, 0.2);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: var(--dark-bg);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 59, 59, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 59, 59, 0.1) 0%, transparent 20%),
+                linear-gradient(135deg, #000000 0%, #1a0000 100%);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Шапка сайта */
+        header {
+            background: linear-gradient(135deg, rgba(26, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.95) 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(255, 59, 59, 0.2);
+            border-bottom: 1px solid rgba(255, 59, 59, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 2rem;
+            position: relative;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 5px 0;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Герой-секция */
+        .hero {
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 59, 59, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 59, 59, 0.1) 0%, transparent 50%),
+                linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.9)),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(255,59,59,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-top: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 59, 59, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+            animation: pulse 8s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(255, 59, 59, 0.5);
+            background: linear-gradient(to right, #fff, var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGlow 3s infinite alternate;
+        }
+        
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 10px rgba(255, 59, 59, 0.5); }
+            100% { text-shadow: 0 0 20px rgba(255, 59, 59, 0.8), 0 0 30px rgba(255, 59, 59, 0.6); }
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #cc0000 100%);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border: none;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 59, 59, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 59, 59, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+        
+        /* Секции */
+        section {
+            padding: 5rem 0;
+            position: relative;
+            background: var(--dark-bg);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--text-color);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            max-width: 600px;
+            margin: 1rem auto 0;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* О нас */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .about-text h3::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 5px;
+            background: linear-gradient(to bottom, var(--secondary-color), var(--accent-color));
+            border-radius: 3px;
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid transparent;
+            background: linear-gradient(45deg, var(--secondary-color), var(--accent-color)) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            transition: var(--transition);
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Проекты */
+        .projects {
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a0000 100%);
+            position: relative;
+        }
+        
+        .projects::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
+        }
+        
+        .project-featured {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(20, 0, 0, 0.7);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 59, 59, 0.2);
+            position: relative;
+        }
+        
+        .project-featured::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
+        }
+        
+        .project-image {
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .project-featured:hover .project-image img {
+            transform: scale(1.05);
+        }
+        
+        .project-info {
+            padding: 2rem;
+        }
+        
+        .project-info h3 {
+            margin-bottom: 1rem;
+            color: var(--text-color);
+            font-size: 2rem;
+        }
+        
+        .project-info .project-meta {
+            display: flex;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            flex-wrap: wrap;
+        }
+        
+        .project-info .project-meta span {
+            margin-right: 20px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            background: rgba(255, 59, 59, 0.1);
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 59, 59, 0.2);
+        }
+        
+        .project-info .project-meta i {
+            margin-right: 8px;
+            color: var(--secondary-color);
+        }
+        
+        .project-info p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+        
+        /* Команда */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .team-member {
+            text-align: center;
+            background: rgba(20, 0, 0, 0.7);
+            padding: 2rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 59, 59, 0.1);
+        }
+        
+        .team-member::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 59, 59, 0.2);
+            border-color: rgba(255, 59, 59, 0.3);
+        }
+        
+        .member-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 1.5rem;
+            border: 5px solid transparent;
+            background: linear-gradient(45deg, var(--secondary-color), var(--accent-color)) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+        }
+        
+        .member-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .team-member h3 {
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            font-size: 1.3rem;
+        }
+        
+        .team-member .role {
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member .sub-role {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            font-style: italic;
+        }
+        
+        .team-member p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        /* Контакты */
+        .contact {
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a0000 100%);
+            color: white;
+            position: relative;
+        }
+        
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
+        }
+        
+        .contact-content {
+            display: flex;
+            gap: 3rem;
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .contact-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        .contact-details {
+            margin-bottom: 2rem;
+        }
+        
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .contact-detail i {
+            margin-right: 1rem;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            width: 30px;
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .social-links a:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .github-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--secondary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .github-btn:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+        }
+        
+        /* Подвал */
+        footer {
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a0000 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 2px solid rgba(255, 59, 59, 0.3);
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Анимации для плавного перехода */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .about-content, .contact-content {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 60px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 60px);
+                background: linear-gradient(135deg, rgba(26, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.98) 100%);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 2rem;
+                transition: var(--transition);
+                z-index: 999;
+                backdrop-filter: blur(10px);
+            }
+            
+            nav ul.active {
+                left: 0;
+            }
+            
+            nav ul li {
+                margin: 1.5rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .project-meta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .project-meta span {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo"><i class="fas fa-book-skull"></i>Grim<span>Visual</span></a>
+                <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#about">О нас</a></li>
+                        <li><a href="#projects">Проекты</a></li>
+                        <li><a href="#team">Команда</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Герой-секция -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Погрузитесь в мир визуальных новелл</h1>
+                <p>GrimVisual создает уникальные интерактивные истории, которые перенесут вас в захватывающие миры с глубокими персонажами и сложными сюжетами. Откройте для себя новое измерение повествования.</p>
+                <a href="#projects" class="btn">Наш проект</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- О нас -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>О нас</h2>
+                <p>Узнайте больше о нашей компании и нашей миссии</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Наша история</h3>
+                    <p>GrimVisual была основана в 2025 году группой энтузиастов, увлеченных созданием визуальных новелл. Мы объединили талантливых писателей, художников и программистов для создания уникальных интерактивных историй.</p>
+                    <p>Наша миссия — создавать глубокие, эмоциональные и запоминающиеся визуальные новеллы, которые заставляют игроков задуматься и сопереживать персонажам.</p>
+                    <p>Мы верим, что визуальные новеллы — это не просто игры, а форма искусства, способная передавать сложные эмоции и идеи через сочетание текста, изображений и музыки.</p>
+                    <a href="#contact" class="btn">Связаться с нами</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Наша студия">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Проекты -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-title">
+                <h2>Наш проект</h2>
+                <p>Единственный, но уникальный проект, над которым мы работаем</p>
+            </div>
+            <div class="project-featured">
+                <div class="project-image">
+                    <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1526&q=80" alt="Echo Time">
+                </div>
+                <div class="project-info">
+                    <h3>Echo Time</h3>
+                    <div class="project-meta">
+                        <span><i class="fas fa-user-edit"></i> Сценарист: Kizzill</span>
+                        <span><i class="fas fa-code"></i> Программист: wellcried</span>
+                        <span><i class="fas fa-lightbulb"></i> Идеи: Yatagarasu</span>
+                        <span><i class="fas fa-palette"></i> Художник: kuzomee</span>
+                    </div>
+                    <p>Захватывающая история о путешествиях во времени, где каждое решение меняет будущее. Главный герой обнаруживает способность перемещаться между эпохами, но каждое изменение в прошлом имеет непредсказуемые последствия.</p>
+                    <p>В этой визуальной новелле вас ждут глубокие персонажи, сложные моральные выборы и несколько концовок, зависящих от ваших решений. Погрузитесь в атмосферу загадок и временных парадоксов, где ничто не является таким, каким кажется на первый взгляд.</p>
+                    <a href="#" class="btn">Следить за разработкой</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Команда -->
+    <section id="team">
+        <div class="container">
+            <div class="section-title">
+                <h2>Наша команда</h2>
+                <p>Познакомьтесь с талантливыми людьми, стоящими за нашими проектами</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="https://i.postimg.cc/cCFKs5Lr/image.png" alt="Kizzill">
+                    </div>
+                    <h3>Kizzill</h3>
+                    <p class="role">Главный сценарист</p>
+                    <p>Создает глубокие и захватывающие сюжеты, которые не оставляют равнодушными.</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="https://i.postimg.cc/cCFKs5Lr/image.png" alt="wellcried">
+                    </div>
+                    <h3>wellcried</h3>
+                    <p class="role">Главный программист</p>
+                    <p>Отвечает за техническую реализацию проектов и создание интерактивных возможностей.</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="https://i.postimg.cc/cCFKs5Lr/image.png" alt="Yatagarasu">
+                    </div>
+                    <h3>Yatagarasu</h3>
+                    <p class="role">Генератор идей</p>
+                    <p class="sub-role">Помощник сценариста</p>
+                    <p>Создает концепции миров и персонажей, которые становятся основой наших проектов.</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="https://i.postimg.cc/cCFKs5Lr/image.png" alt="kuzomee">
+                    </div>
+                    <h3>kuzomee</h3>
+                    <p class="role">Художественный директор</p>
+                    <p>Создает визуальный стиль проектов и отвечает за художественное оформление.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Свяжитесь с нами</h2>
+                <p>Мы всегда рады новым идеям и сотрудничеству</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Наши контакты</h3>
+                    <div class="contact-details">
+                        <div class="contact-detail">
+                            <i class="fab fa-telegram"></i>
+                            <p>Telegram: @grimvisual</p>
+                        </div>
+                        <div class="contact-detail">
+                            <i class="fas fa-envelope"></i>
+                            <p>vampirestamina@gmail.com</p>
+                        </div>
+                        <div class="contact-detail">
+                            <i class="fab fa-youtube"></i>
+                            <p>YouTube: @grimvisual</p>
+                        </div>
+                        <div class="contact-detail">
+                            <i class="fas fa-calendar-alt"></i>
+                            <p>Основана в 2025 году</p>
+                        </div>
+                    </div>
+                    <h3>Мы в соцсетях</h3>
+                    <div class="social-links">
+                        <a href="https://t.me/grimvisual" target="_blank"><i class="fab fa-telegram"></i></a>
+                        <a href="https://youtube.com/@grimvisual?si=8OqcUIO8xqEYE-X-" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a href="https://github.com/wellcried" target="_blank" class="github-btn">
+                            <i class="fab fa-github"></i>
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <a href="#" class="logo"><i class="fas fa-book-skull"></i>Grim<span>Visual</span></a>
+                <div class="footer-links">
+                    <a href="#home">Главная</a>
+                    <a href="#about">О нас</a>
+                    <a href="#projects">Проекты</a>
+                    <a href="#team">Команда</a>
+                    <a href="#contact">Контакты</a>
+                </div>
+                <p class="copyright">© 2025 GrimVisual. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Мобильное меню
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('nav ul');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        
+        // Плавная прокрутка с анимацией
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+        
+        // Закрытие меню при клике вне его области
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('nav') && !e.target.closest('.mobile-menu-btn')) {
+                navMenu.classList.remove('active');
+            }
+        });
+        
+        // Анимация появления секций при скролле
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
