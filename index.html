@@ -126,6 +126,45 @@
             cursor: pointer;
         }
         
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(20, 0, 0, 0.8);
+            border-radius: 50px;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+        }
+        
+        .music-toggle {
+            background: var(--secondary-color);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .music-toggle:hover {
+            background: var(--accent-color);
+            transform: scale(1.1);
+        }
+        
+        .music-info {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
         .hero {
             background: 
                 radial-gradient(circle at 20% 50%, rgba(255, 59, 59, 0.15) 0%, transparent 50%),
@@ -485,6 +524,61 @@
             font-size: 0.9rem;
         }
         
+        .faq-section {
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a0000 100%);
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: rgba(20, 0, 0, 0.7);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 59, 59, 0.2);
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+        
+        .faq-question:hover {
+            background: rgba(255, 59, 59, 0.1);
+        }
+        
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+        
+        .faq-item.active .faq-question::after {
+            transform: rotate(45deg);
+        }
+        
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 500px;
+        }
+        
         .contact {
             background: linear-gradient(135deg, #0d0d0d 0%, #1a0000 100%);
             color: white;
@@ -701,10 +795,27 @@
             .project-symbol {
                 font-size: 3rem;
             }
+            
+            .music-player {
+                bottom: 10px;
+                right: 10px;
+                padding: 8px 12px;
+            }
+            
+            .music-info {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="music-player">
+        <button class="music-toggle">
+            <i class="fas fa-play"></i>
+        </button>
+        <div class="music-info">Ambient Music</div>
+    </div>
+
     <header>
         <div class="container">
             <div class="header-content">
@@ -715,6 +826,7 @@
                         <li><a href="#home">Главная</a></li>
                         <li><a href="#about">О нас</a></li>
                         <li><a href="#projects">Проекты</a></li>
+                        <li><a href="#faq">FAQ</a></li>
                         <li><a href="#team">Команда</a></li>
                         <li><a href="#contact">Контакты</a></li>
                     </ul>
@@ -779,6 +891,37 @@
                     <p>Захватывающая история о путешествиях во времени, где каждое решение меняет будущее. Главный герой обнаруживает способность перемещаться между эпохами, но каждое изменение в прошлом имеет непредсказуемые последствия.</p>
                     <p>В этой визуальной новелле вас ждут глубокие персонажи, сложные моральные выборы и несколько концовок, зависящих от ваших решений.</p>
                     <a href="#" class="btn">Следить за разработкой</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Часто задаваемые вопросы</h2>
+                <p>Все что вы хотели знать о нашем проекте</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">Когда выйдет Echo Time?</div>
+                    <div class="faq-answer">Мы планируем выпустить Echo Time в конце 2025 года. Следите за нашими обновлениями в социальных сетях!</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">На каких платформах будет доступна игра?</div>
+                    <div class="faq-answer">Изначально Echo Time выйдет на PC (Windows, Mac, Linux). В будущем рассматриваем портирование на мобильные платформы.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Будет ли русская локализация?</div>
+                    <div class="faq-answer">Да, игра будет полностью переведена на русский язык, включая озвучку основных персонажей.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Сколько концовок будет в игре?</div>
+                    <div class="faq-answer">Мы планируем 5 основных концовок и множество вариаций, зависящих от ваших решений на протяжении всей игры.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Можно ли будет повлиять на сюжет?</div>
+                    <div class="faq-answer">Да! Echo Time - это игра о выборе. Каждое ваше решение будет влиять на развитие сюжета и отношения с персонажами.</div>
                 </div>
             </div>
         </div>
@@ -860,6 +1003,7 @@
                     <a href="#home">Главная</a>
                     <a href="#about">О нас</a>
                     <a href="#projects">Проекты</a>
+                    <a href="#faq">FAQ</a>
                     <a href="#team">Команда</a>
                     <a href="#contact">Контакты</a>
                 </div>
@@ -916,6 +1060,48 @@
         
         document.querySelectorAll('section').forEach(section => {
             observer.observe(section);
+        });
+
+        const musicToggle = document.querySelector('.music-toggle');
+        const musicIcon = musicToggle.querySelector('i');
+        let audio = null;
+        let isPlaying = false;
+
+        musicToggle.addEventListener('click', () => {
+            if (!audio) {
+                audio = new Audio('https://assets.mixkit.co/music/preview/mixkit-tech-house-vibes-130.mp3');
+                audio.loop = true;
+                audio.volume = 0.3;
+            }
+
+            if (isPlaying) {
+                audio.pause();
+                musicIcon.className = 'fas fa-play';
+            } else {
+                audio.play().catch(e => {
+                    console.log('Автовоспроизведение заблокировано');
+                });
+                musicIcon.className = 'fas fa-pause';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                faqItems.forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                });
+                
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
         });
     </script>
 </body>
